@@ -57,16 +57,15 @@ public class NotifyServlet extends HttpServlet {
             Properties mailServerProperties;
             Session getMailSession;
             MimeMessage generateMailMessage;
-//Step1
+
             System.out.println("\n 1st ===> setup Mail Server Properties..");
             mailServerProperties = System.getProperties();
             mailServerProperties.put("mail.smtp.host", "smtp.sendgrid.net");
             mailServerProperties.put("mail.smtp.port", "587");
             mailServerProperties.put("mail.smtp.auth", "true");
-            //mailServerProperties.put("mail.smtp.starttls.enable", "true");
+            mailServerProperties.put("mail.smtp.starttls.enable", "true");
             System.out.println("Mail Server Properties have been setup successfully..");
 
-//Step2
             System.out.println("\n\n 2nd ===> get Mail Session..");
             Authenticator auth = new SMTPAuthenticator();
             getMailSession = Session.getDefaultInstance(mailServerProperties, auth);
@@ -77,10 +76,9 @@ public class NotifyServlet extends HttpServlet {
             generateMailMessage.setContent(emailBody, "text/html");
             System.out.println("Mail Session has been created successfully..");
 
-//Step3
             System.out.println("\n\n 3rd ===> Get Session and Send mail");
             Transport transport = getMailSession.getTransport("smtp");
-// Enter your correct gmail UserID and Password (XXXa.shah@gmail.com)
+
             transport.connect();
             transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
             transport.close();
