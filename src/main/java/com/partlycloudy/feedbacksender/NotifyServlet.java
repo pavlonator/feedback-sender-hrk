@@ -89,8 +89,9 @@ public class NotifyServlet extends HttpServlet {
             response.getWriter().write("{\"status\":\"OK\"}");
             response.getWriter().flush();
         } catch (Exception e) {
-            response.getWriter().write("{\"status\":\"fail\"}");
-            response.getWriter().flush();
+            e.printStackTrace(response.getWriter());
+            //response.getWriter().write("{\"status\":\"fail\"}");
+            //response.getWriter().flush();
         }
 
     }
