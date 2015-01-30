@@ -21,15 +21,12 @@ import java.util.Enumeration;
 import java.util.logging.Logger;
 import java.util.Random;
 
+import javax.mail.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -63,6 +60,7 @@ public class NotifyServlet extends HttpServlet {
 //Step1
             System.out.println("\n 1st ===> setup Mail Server Properties..");
             mailServerProperties = System.getProperties();
+            mailServerProperties.put("mail.smtp.host", "smtp.gmail.com");
             mailServerProperties.put("mail.smtp.port", "587");
             mailServerProperties.put("mail.smtp.auth", "true");
             mailServerProperties.put("mail.smtp.starttls.enable", "true");
@@ -70,7 +68,8 @@ public class NotifyServlet extends HttpServlet {
 
 //Step2
             System.out.println("\n\n 2nd ===> get Mail Session..");
-            getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+            Authenticator auth = new SMTPAuthenticator();
+            getMailSession = Session.getDefaultInstance(mailServerProperties, auth);
             generateMailMessage = new MimeMessage(getMailSession);
             generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("pavlocherkashyn@gmail.com"));
             generateMailMessage.setFrom(new InternetAddress("pavlocherkashyn@gmail.com"));
@@ -83,16 +82,21 @@ public class NotifyServlet extends HttpServlet {
             System.out.println("\n\n 3rd ===> Get Session and Send mail");
             Transport transport = getMailSession.getTransport("smtp");
 // Enter your correct gmail UserID and Password (XXXa.shah@gmail.com)
-            transport.connect("smtp.gmail.com", "pavlocherkashyn@gmail.com", "01$puxnY3321");
+            transport.connect();
             transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
             transport.close();
-            response.getWriter().write("{\"status\":\"OK\"}");
-            response.getWriter().flush();
         } catch (Exception e) {
             e.printStackTrace(response.getWriter());
             //response.getWriter().write("{\"status\":\"fail\"}");
             //response.getWriter().flush();
         }
 
+    }
+    private class SMTPAuthenticator extends javax.mail.Authenticator {
+        public PasswordAuthentication getPasswordAuthentication() {
+            String username = "pavlocherkashyn@gmail.com";
+            String password = "01$puxnY3321";
+            return new PasswordAuthentication(username, password);
+        }
     }
 }
