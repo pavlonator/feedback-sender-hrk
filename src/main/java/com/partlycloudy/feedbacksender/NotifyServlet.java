@@ -72,7 +72,6 @@ public class NotifyServlet extends HttpServlet {
             getMailSession = Session.getDefaultInstance(mailServerProperties, auth);
             generateMailMessage = new MimeMessage(getMailSession);
             generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress("pavlocherkashyn@gmail.com"));
-            generateMailMessage.setFrom(new InternetAddress("pavlocherkashyn@gmail.com"));
             generateMailMessage.setSubject("Greetings from Feedback Sender...");
             String emailBody = "Test email by Crunchify.com JavaMail API example. " + "<br><br> Regards, <br>Crunchify Admin";
             generateMailMessage.setContent(emailBody, "text/html");
@@ -85,10 +84,12 @@ public class NotifyServlet extends HttpServlet {
             transport.connect();
             transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
             transport.close();
+            response.getWriter().write("{\"status\":\"OK\"}");
+            response.getWriter().flush();
         } catch (Exception e) {
-            e.printStackTrace(response.getWriter());
-            //response.getWriter().write("{\"status\":\"fail\"}");
-            //response.getWriter().flush();
+            //e.printStackTrace(response.getWriter());
+            response.getWriter().write("{\"status\":\"fail\"}");
+            response.getWriter().flush();
         }
 
     }
