@@ -83,7 +83,7 @@ public class NotifyServlet extends HttpServlet {
             System.out.println("\n\n 3rd ===> Get Session and Send mail");
             Transport transport = getMailSession.getTransport("smtp");
 // Enter your correct gmail UserID and Password (XXXa.shah@gmail.com)
-            transport.connect("smtp.gmail.com", "pavlocherkashyn", "01$puxnY3321");
+            transport.connect("smtp.gmail.com", "pavlocherkashyn@gmail.com", "01$puxnY3321");
             transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
             transport.close();
             response.getWriter().write("{\"status\":\"OK\"}");
