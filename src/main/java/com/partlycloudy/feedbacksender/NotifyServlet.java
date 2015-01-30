@@ -60,10 +60,10 @@ public class NotifyServlet extends HttpServlet {
 //Step1
             System.out.println("\n 1st ===> setup Mail Server Properties..");
             mailServerProperties = System.getProperties();
-            mailServerProperties.put("mail.smtp.host", "smtp.gmail.com");
+            mailServerProperties.put("mail.smtp.host", "smtp.sendgrid.net");
             mailServerProperties.put("mail.smtp.port", "587");
             mailServerProperties.put("mail.smtp.auth", "true");
-            mailServerProperties.put("mail.smtp.starttls.enable", "true");
+            //mailServerProperties.put("mail.smtp.starttls.enable", "true");
             System.out.println("Mail Server Properties have been setup successfully..");
 
 //Step2
@@ -94,8 +94,8 @@ public class NotifyServlet extends HttpServlet {
     }
     private class SMTPAuthenticator extends javax.mail.Authenticator {
         public PasswordAuthentication getPasswordAuthentication() {
-            String username = "pavlocherkashyn@gmail.com";
-            String password = "01$puxnY3321";
+            String username = "app33589782@heroku.com";
+            String password = "curedy2j";
             return new PasswordAuthentication(username, password);
         }
     }
