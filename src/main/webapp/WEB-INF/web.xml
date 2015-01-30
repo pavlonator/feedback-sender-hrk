@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+  ﻿"
+         version="2.5">
+<!--
+Copyright (C) 2013 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+  <!-- filters -->
+  <filter>
+    <filter-name>authFilter</filter-name>
+    <filter-class>com.partlycloudy.swishswish.AuthFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>authFilter</filter-name>
+    <url-pattern>*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>reauthFilter</filter-name>
+    <filter-class>com.partlycloudy.swishswish.ReauthFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>reauthFilter</filter-name>
+    <url-pattern>*</url-pattern>
+  </filter-mapping>
+
+
+  <!-- servlets -->
+  <servlet>
+    <servlet-name>main</servlet-name>
+    <servlet-class>com.partlycloudy.swishswish.MainServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>main</servlet-name>
+    <url-pattern>/main</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>oauth2callback</servlet-name>
+    <servlet-class>com.partlycloudy.swishswish.AuthServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>oauth2callback</servlet-name>
+    <url-pattern>/oauth2callback</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>notify</servlet-name>
+    <servlet-class>com.partlycloudy.swishswish.NotifyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>notify</servlet-name>
+    <url-pattern>/notify</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>notify2</servlet-name>
+    <servlet-class>com.partlycloudy.swishswish.Notify2Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>notify2</servlet-name>
+    <url-pattern>/notify2</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>dealAlertFromGlass</servlet-name>
+    <servlet-class>com.partlycloudy.swishswish.DealAlertFromGlassServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dealAlertFromGlass</servlet-name>
+    <url-pattern>/dealAlertFromGlass</url-pattern>
+  </servlet-mapping>
+  
+  
+
+
+  <servlet>
+    <servlet-name>salesforce</servlet-name>
+    <servlet-class>com.partlycloudy.swishswish.SalesForceInputServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>salesforce</servlet-name>
+    <url-pattern>/salesforce</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>attachmentproxy</servlet-name>
+    <servlet-class>com.partlycloudy.swishswish.AttachmentProxyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>attachmentproxy</servlet-name>
+    <url-pattern>/attachmentproxy</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>swishSwish.html</welcome-file>
+  </welcome-file-list>
+</web-app>
